@@ -18,6 +18,7 @@ public class SimpleJobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    ElasticConfig elasticConfig = new ElasticConfig();
 
     @Bean
     public Job simpleJob() {
@@ -31,7 +32,8 @@ public class SimpleJobConfiguration {
     public Step simpleStep1() {
         return stepBuilderFactory.get("simpleStep1")
                 .tasklet((contribution, chunContext) -> {
-                    log.info(">>> This is Step1");
+                    log.info(">>> Indexing Step");
+                    elasticConfig.main();
                     return RepeatStatus.FINISHED;
                 })
                 .build();
