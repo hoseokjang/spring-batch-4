@@ -15,9 +15,8 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.message.BasicHeader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+
+import java.io.*;
 
 @Slf4j
 @JsonIgnoreProperties(ignoreUnknown=true)
