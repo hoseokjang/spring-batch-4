@@ -24,7 +24,7 @@ public class SimpleScheduler {
     @Autowired
     private SimpleJobConfiguration simpleJobConfiguration;
 
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0/20 * * * * *")
     public void runJob() {
         // job parameter 설정
         Map<String, JobParameter> confMap = new HashMap<>();

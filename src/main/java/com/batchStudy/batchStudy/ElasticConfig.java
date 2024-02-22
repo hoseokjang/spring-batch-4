@@ -56,10 +56,30 @@ public class ElasticConfig {
         );
 
 
-        IndexResponse response = esClient.index(request);
+//        IndexResponse response = esClient.index(request);
 
-        log.info("Indexed with version " + response.version());
+//        log.info("Indexed with version " + response.version());
 
+
+        try {
+            // 파일 읽기
+            File file = new File("D:\\BOTH_lineF.vcf");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // header 읽기
+            String firstLine = bufferedReader.readLine();
+            String[] headerList = firstLine.split("\t");
+
+            // 데이터 읽기
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
