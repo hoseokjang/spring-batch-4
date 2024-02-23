@@ -8,6 +8,7 @@ import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.json.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
@@ -15,8 +16,13 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.message.BasicHeader;
+import org.json.JSONObject;
 
 import java.io.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -71,10 +77,17 @@ public class ElasticConfig {
             String firstLine = bufferedReader.readLine();
             String[] headerList = firstLine.split("\t");
 
+            Map<String, String> map = new HashMap<>();
+
             // 데이터 읽기
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
+                String[] lineList = line.split("\t");
+                for (int i = 0; i < headerList.length; i++) {
+                    map.put(headerList[i], lineList[i]);
+                }
+                JSONObject jsonObject = new JSONObject(map);
+                System.out.println("json : " + jsonObject);
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
